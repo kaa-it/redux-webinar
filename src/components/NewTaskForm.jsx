@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTask, ADD_TASK } from "../services/tasks/actions";
 
 const NewTaskForm = () => {
   const [inputValue, setInputValue] = useState("");
+
+  const dispatch = useDispatch();
 
   const handleInputChange = (evt) => {
     setInputValue(evt.target.value);
@@ -9,6 +13,7 @@ const NewTaskForm = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    dispatch(addTask(inputValue));
   };
 
   return (

@@ -1,21 +1,10 @@
 import Task from "./Task";
 import NewTaskFrom from "./NewTaskForm";
+import { useSelector } from "react-redux";
+import { getTasks } from "../services/tasks/selectors";
 
 const TasksList = () => {
-  const projectTasks = [
-    {
-      content: "Задача 1",
-      id: 1,
-    },
-    {
-      content: "Задача 2",
-      id: 2,
-    },
-    {
-      content: "Задача 3",
-      id: 3,
-    },
-  ];
+  const projectTasks = useSelector(getTasks);
 
   return (
     <div className="todolist__list">
