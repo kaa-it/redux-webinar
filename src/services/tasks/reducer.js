@@ -1,48 +1,34 @@
-import {
-  ADD_TASK_SUCCESS,
-  DELETE_TASK_SUCCESS,
-  TASKS_LOAD_SUCCESS,
-  TASKS_LOADING,
-  TASKS_ERROR
-} from "./actions";
+import { addTask, deleteTask, loadTasks } from "./actions";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  tasks: [],
-  loading: false,
-  error: null
-};
-
-export const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case TASKS_LOADING:
-      return {
-        ...state,
-        loading: true,
-        error: null
-      };
-    case TASKS_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload
-      };  
-    case TASKS_LOAD_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        tasks: action.payload,
-      };
-    case ADD_TASK_SUCCESS:
-      return {
-        ...state,
-        tasks: [...state.tasks, action.payload],
-      };
-    case DELETE_TASK_SUCCESS:
-      return {
-        ...state,
-        tasks: state.tasks.filter((task) => task.id !== action.payload),
-      };
-    default:
-      return state;
+const taskSlice = createSlice({
+  name: 'tasks',
+  initialState: {
+    tasks: [],
+    loading: false,
+    error: null
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(addTask.fulfilled, (state, action) => {
+        state.tasks.push(action.payload);
+      })
+      .addCase(deleteTask.fulfilled, (state, action) => {
+        state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+      })
+      .addCase(loadTasks.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loadTasks.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(loadTasks.fulfilled, (state, action) => {
+        state.loading = false;
+        state.tasks = action.payload;
+      })
   }
-};
+})
+
+export const reducer = taskSlice.reducer;

@@ -1,17 +1,26 @@
-import { AUTH_REQUEST_SUCCESS } from "./actions";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
 };
 
-export const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case AUTH_REQUEST_SUCCESS:
-      return {
-        ...state,
-        user: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+export const authSlice = createSlice({
+  name: 'auth',
+  initialState: {
+    user: null,
+  },
+  reducers: {
+    setUser: {
+        reducer: (state, action) => {
+            state.user = action.payload;
+        },
+        prepare: (user) => {
+            const id = Math.random();
+            return { payload: { ...user, key: id } };
+        }
+    }
+  } 
+});
+
+export const reducer = authSlice.reducer;
+export const { setUser } = authSlice.actions;
