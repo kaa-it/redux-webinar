@@ -3,11 +3,36 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
+import { configureStore } from "./services/store";
+import { Provider } from "react-redux";
+
+// const store = configureStore({
+//   tasks: {
+//     tasks: [
+//       {
+//         content: "Задача 1",
+//         id: 1,
+//       },
+//       {
+//         content: "Задача 2",
+//         id: 2,
+//       },
+//       {
+//         content: "Задача 3",
+//         id: 3,
+//       },
+//     ],
+//   }
+// });
+
+const store = configureStore();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 

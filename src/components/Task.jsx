@@ -1,8 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { DELETE_TASK, deleteTask } from "../services/tasks/actions";
 
 const Task = ({ task }) => {
-  const handleDelete = () => {};
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {
+    dispatch(deleteTask(task.id));
+  };
 
   return (
     <article className="todolist__item">
