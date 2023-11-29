@@ -2,9 +2,10 @@ import Task from "./Task";
 import NewTaskFrom from "./NewTaskForm";
 import { useSelector } from "react-redux";
 import { getTasks, hasOneTasks } from "../services/tasks/selectors";
+import {useGetProductTasksQuery} from "../services/tasks/api";
 
 const TasksList = () => {
-  const projectTasks = useSelector(hasOneTasks);
+  const {data: projectTasks} = useGetProductTasksQuery();
 
   return (
     <div className="todolist__list">

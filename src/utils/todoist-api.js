@@ -1,4 +1,4 @@
-const todoistApiConfig = {
+export const todoistApiConfig = {
   baseUrl: "https://api.todoist.com/rest/v2",
   headers: {
     Authorization: "Bearer db46c96636d926f767751cbe7aeb313963a2a4d9",

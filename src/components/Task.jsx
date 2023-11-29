@@ -1,13 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
-import { DELETE_TASK, deleteTask } from "../services/tasks/actions";
+import {useDeleteTaskByIdMutation} from "../services/tasks/api";
 
 const Task = ({ task }) => {
   const dispatch = useDispatch();
+  const [deleteTask] = useDeleteTaskByIdMutation();
 
   const handleDelete = () => {
-    dispatch(deleteTask(task.id));
+    deleteTask(task.id);
   };
 
   return (
